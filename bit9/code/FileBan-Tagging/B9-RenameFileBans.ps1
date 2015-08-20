@@ -1,10 +1,18 @@
+##############################
+# Prepare API
+##############################
 $apiKey = "Your API Token Here"
 $URLResource = "https://serverURL/api/bit9platform/v1/fileRule"
-
 $URLfileBan = $URLResource+"?q=fileState:3"
 
+##############################
+# Pull file rules
+##############################
 $FileBan = Invoke-RestMethod -Uri $URLfileBan -Method Get -Header @{ "X-Auth-Token" = $apiKey } 
 
+##############################
+# Tag each file rule with the team tag, defined below, if not already done.
+##############################
 foreach ( $ban in $FileBan )
 {
     $ConsoleUsers = $ban.createdBy
